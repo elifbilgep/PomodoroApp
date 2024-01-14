@@ -13,6 +13,8 @@ struct PomodoroView: View {
     @Bindable var taskModel: TaskModel
     @Environment(\.presentationMode) var presentationMode
     @AppStorage("currentTimeValue") var currentTimeValue: String?
+    @AppStorage("currentTaskId") var currentTaskId: String?
+    @Environment(\.scenePhase) var phase
 
     //MARK: - Initalize
     init(progressViewModel: ProgressViewModel, taskModel: TaskModel) {
@@ -36,7 +38,20 @@ struct PomodoroView: View {
             }.padding(.vertical, 70)
         }.navigationBarBackButtonHidden(true)
             .ignoresSafeArea()
-
+            .onChange(of: phase) { oldPhase, newPhase in
+                switch newPhase {
+                case .active:
+                    DispatchQueue.main.async {
+                        progressViewModel.movingToForeground()
+                    }
+                case .inactive:
+                    AppStateManager.shared.isActiveState = false
+                case .background:
+                    progressViewModel.movingToBackground()
+                @unknown default:
+                    print("unknown state")
+                }
+            }
     }
 
     //MARK: - App Bar
@@ -46,7 +61,8 @@ struct PomodoroView: View {
             Image(systemName: "chevron.backward").font(.system(size: 22))
                 .onTapGesture {
                     presentationMode.wrappedValue.dismiss()
-//                    UserDefaults.standard.set(String(format: "%02d : %02d", progressViewModel.remainingTime().minutes, progressViewModel.remainingTime().seconds), forKey: "currentTimeValue")
+                    UserDefaults.standard.set(progressViewModel.remainingTimeString, forKey: "currentTimeValue")
+                    UserDefaults.standard.set(taskModel.taskId, forKey: "currentTaskId")
                 }
             Spacer()
             Text("Pomodoro Timer").font(.custom(Constants.TextConstants.baloo2Regular, size: 22)).foregroundStyle(.black.opacity(0.6))
@@ -56,7 +72,7 @@ struct PomodoroView: View {
     }
 
     //MARK: - Current Task View
-    @ViewBuilder
+   @ViewBuilder 
     private func currentTaskView() -> some View {
          RoundedRectangle(cornerRadius: 10)
             .frame(width: 350, height: 80)
@@ -95,7 +111,7 @@ struct PomodoroView: View {
                     .foregroundColor(Color.clockBgColor)
 
                 Circle()
-                    .trim(from: 0.0, to: CGFloat(progressViewModel.progress ?? 0))
+                    .trim(from: 0.0, to: CGFloat(min(progressViewModel.progressModel.progress, 1.0)))
                     .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
                     .fill(
                         LinearGradient(
@@ -107,14 +123,24 @@ struct PomodoroView: View {
                     .rotationEffect(Angle(degrees: -90))
 
                 VStack {
-                    Text("\(progressViewModel.remainingTime().minutes):\(String(progressViewModel.remainingTime().seconds))")
-                    .font(.custom(Constants.TextConstants.baloo2Bold, size: 52))
-                    .foregroundColor(Color.clockTextColor)
-                    .frame(height: 30)
-                    Text("\(taskModel.activeSession ?? 1) of \(taskModel.session ?? 1) session")
-                        .font(.custom(Constants.TextConstants.baloo2Medium, size: 15))
-                        .foregroundStyle(.gray.opacity(0.8))
-
+                    if currentTimeValue != nil {
+                        Text((progressViewModel.remainingTimeString ?? currentTimeValue)!)
+                            .font(.custom(Constants.TextConstants.baloo2Bold, size: 52))
+                            .foregroundColor(Color.clockTextColor)
+                            .frame(height: 30)
+                    } else {
+                        Text("\(progressViewModel.remainingTimeString ?? "\(Int(taskModel.duration!)):00")")
+                        .font(.custom(Constants.TextConstants.baloo2Bold, size: 52))
+                        .foregroundColor(Color.clockTextColor)
+                        .frame(height: 30)
+                        Text("\(taskModel.activeSession ?? 1) of \(taskModel.session ?? 1) session")
+                            .font(.custom(Constants.TextConstants.baloo2Medium, size: 15))
+                            .foregroundStyle(.gray.opacity(0.8))
+                    }
+                }.onAppear {
+                    if currentTimeValue != nil && currentTaskId == taskModel.taskId {
+                        progressViewModel.changeCurrentProgress(value: currentTimeValue!)
+                    }
                 }
                 Circle()
                     .frame(width: 30, height: 30)
@@ -124,8 +150,8 @@ struct PomodoroView: View {
                         Circle().frame(width: 15, height: 15, alignment: .center).foregroundStyle(Color.primaryColor)
                     })
                     .offset(
-                        x: 125 * cos(2 * .pi * Double(progressViewModel.progress ?? 0)),
-                        y: 125 * sin(2 * .pi * Double(progressViewModel.progress ?? 0))
+                        x: 125 * cos(2 * .pi * Double(progressViewModel.progressModel.progress )),
+                        y: 125 * sin(2 * .pi * Double(progressViewModel.progressModel.progress ))
                     )
                     .rotationEffect(Angle(degrees: -90))
 

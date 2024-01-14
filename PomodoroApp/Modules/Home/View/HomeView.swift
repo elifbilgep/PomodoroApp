@@ -19,19 +19,19 @@ struct HomeView: View {
     @State var isPresented: Bool = false
     @State var selectedEmoji: String = "😇"
     @State var selectedSession: Int = 1
-    let sessions: [Int] = [1,2,3,4,5]
+    let sessions: [Int] = [1,2,3,4]
     @State private var selectedMinutes: Int = 15
     @State private var selectedBreakMin: Int = 10
     @AppStorage("currentTimeValue") var currentTimeValue: String?
-
-
+    
+    
     //MARK: - Init
     init(modelContext: ModelContext) {
         let viewModel = HomeViewModel(modelContext: modelContext)
-        _viewModel = State(initialValue: viewModel)
-
+       _viewModel = State(initialValue: viewModel)
+        
     }
-
+    
     //MARK: - Body
     @ViewBuilder
     var body: some View {
@@ -59,7 +59,7 @@ struct HomeView: View {
                 }
         }
     }
-
+    
     @ViewBuilder
     private func headlineView() -> some View {
         HStack {
@@ -68,12 +68,12 @@ struct HomeView: View {
                 Text("Be productive today!").font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
                     .font(.system(size: 20))
                     .foregroundColor(.black.opacity(0.6))
-
+                
             }.frame(width: UIScreen.screenWidth - 70, height: 60,alignment: .leading)
             Image(systemName: "text.alignright")
         }.padding()
     }
-
+    
     //MARK: - Add Task View
     @ViewBuilder
     private func addTaskView() -> some View {
@@ -120,14 +120,13 @@ struct HomeView: View {
                 ).frame(width: 50, height: 50)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
-
                 TextField("New Task Name", text: $textFieldText)
                     .font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
                     .padding(10)
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                     .tint(Color.primaryColor)
-
+                
             }
             HStack {
                 Text("Minutes per work:")
@@ -163,28 +162,28 @@ struct HomeView: View {
                     session: selectedSession,
                     breakDuration: String(selectedBreakMin)
                 )
-
+                
                 viewModel.addTask(task: newTask)
                 isSheetOpen.toggle()
                 textFieldText = ""
             }, label: {
                 Text("Add Task").frame(width: 330,height: 30)
-
+                
             })
             .tint(Color.primaryColor)
             .buttonStyle(.borderedProminent)
-
+            
         }
         .frame(width: 350, height: 400, alignment: .top).presentationDetents([.height(500)])
         .font(.custom(Constants.TextConstants.baloo2Medium, size: 16))
     }
-
+    
     private func formatHourAndMinute(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
-
+    
     //MARK: - All Tasks View
     @ViewBuilder
     private func tasksView() -> some View {
@@ -193,7 +192,7 @@ struct HomeView: View {
             //completedTaskView(fakeList: fakeList)
         }
     }
-
+    
     @ViewBuilder
     private func allTaskView() -> some View {
         VStack {
@@ -201,14 +200,14 @@ struct HomeView: View {
                 .font(.custom(Constants.TextConstants.baloo2SemiBold, size: 20))
                 .foregroundColor(.black.opacity(0.6))
                 .frame(width: 350, height: 20, alignment: .leading).padding()
-
+            
             ForEach(viewModel.allTasks) { task in
                 taskView(task: task)
             }
         }
     }
-
-
+    
+    
     //MARK: - Task View
     @ViewBuilder
     private func taskView(task: TaskModel) -> some View {
@@ -247,9 +246,9 @@ struct HomeView: View {
                     }
                 }.frame(width: 350, height: 40, alignment: .leading)
             }
-
+        
     }
-
+    
     //MARK: - Completed Task View
     //    private func completedTaskView(fakeList: [(String, String, String)]) -> some View {
     //        return VStack {
@@ -264,9 +263,9 @@ struct HomeView: View {
     //        }
     //
     //
-
-
-
+    
+    
+    
     //MARK: - Old Tasks View
     private func oldTaskView(task: TaskModel) -> some View {
         RoundedRectangle(cornerRadius: 10)
@@ -303,9 +302,8 @@ struct HomeView: View {
         return HomeView(modelContext: container.mainContext)
             .modelContainer(container)
     } catch {
-        fatalError("Failed to create a model container")
+        fatalError()
     }
-
 }
 
 

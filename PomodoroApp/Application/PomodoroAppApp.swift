@@ -13,6 +13,7 @@ import SwiftData
 struct PomodoroAppApp: App {
     let container: ModelContainer
     @AppStorage("currentTimeValue") var currentTimeValue: String = "0"
+   
 
     var body: some Scene {
         WindowGroup {
@@ -27,4 +28,13 @@ struct PomodoroAppApp: App {
             fatalError("Failed to create ModelContainer for Destiantion")
         }
     }
+}
+
+class AppStateManager: ObservableObject {
+    @Published var isActiveState = false
+    @Published var showBlur = false
+    
+    static var shared = AppStateManager()
+    
+    private init() {}
 }

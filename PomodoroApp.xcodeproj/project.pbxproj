@@ -74,7 +74,6 @@
 			children = (
 				6A88B6C72B3EDFB400FE0504 /* Components */,
 				6A332F5E2B27AA6B00C68FF6 /* PomodoroView.swift */,
-				6A88B6C82B3EDFCE00FE0504 /* CustomButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -222,6 +221,7 @@
 		6A88B6C72B3EDFB400FE0504 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6A88B6C82B3EDFCE00FE0504 /* CustomButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
