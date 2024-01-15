@@ -10,24 +10,24 @@ import SwiftData
 
 @Model
 class TaskModel: Hashable {
-    var name: String?
-    var duration: CGFloat?
-    var emoji: String?
-    var date: String?
-    var isCompleted: Bool?
-    var session: Int?
-    var activeSession: Int?
-    var breakDuration: String?
-    var taskId: String?
+    var name: String
+    var duration: Double
+    var emoji: String
+    var date: String
+    var isCompleted: Bool
+    var session: Int
+    var activeSession: Int
+    var breakDuration: Double
+    var taskId: String
 
     init(name: String = "",
-         duration: CGFloat = 1.0,
+         duration: CGFloat = 100.0,
          emoji: String = "💻",
          date: String = "22.2023",
          isCompleted: Bool = false,
          session: Int = 1,
          activeSession: Int = 1,
-         breakDuration: String = "",
+         breakDuration: Double = 5.0,
          taskId: String = "") {
         self.name = name
         self.duration = duration

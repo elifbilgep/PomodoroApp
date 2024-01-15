@@ -20,8 +20,8 @@ struct HomeView: View {
     @State var selectedEmoji: String = "😇"
     @State var selectedSession: Int = 1
     let sessions: [Int] = [1,2,3,4]
-    @State private var selectedMinutes: Int = 15
-    @State private var selectedBreakMin: Int = 10
+    @State private var selectedMinutes: Double = 15
+    @State private var selectedBreakMin: Double = 10
     @AppStorage("currentTimeValue") var currentTimeValue: String?
     
     
@@ -49,12 +49,7 @@ struct HomeView: View {
             }.edgesIgnoringSafeArea(.all)
                 .navigationDestination(for: TaskModel.self) { task in
                     PomodoroView(
-                        progressViewModel: ProgressViewModel(
-                            progress: ProgressModel(
-                                progress: 0,
-                                circleProgress: 0,
-                                totalTime: CGFloat(task.duration?.timeStringToSeconds() ?? 1.0)))
-                        , taskModel: task
+                       taskModel: task
                     )
                 }
         }
@@ -155,12 +150,12 @@ struct HomeView: View {
             Button(action: {
                 let newTask = TaskModel(
                     name: textFieldText,
-                    duration: CGFloat(selectedMinutes),
+                    duration: selectedMinutes,
                     emoji: selectedEmoji,
                     date: Date.now.formatted(.dateTime),
                     isCompleted: false,
                     session: selectedSession,
-                    breakDuration: String(selectedBreakMin)
+                    breakDuration: selectedBreakMin
                 )
                 
                 viewModel.addTask(task: newTask)
@@ -221,14 +216,14 @@ struct HomeView: View {
                         .frame(width: 50, height: 50, alignment: .leading)
                         .padding(.horizontal, 8)
                         .overlay {
-                            Text(task.emoji ?? "🫥").font(.system(size: 26))
+                            Text(task.emoji).font(.system(size: 26))
                         }
                     VStack(alignment: .leading) {
-                        Text(task.name ?? "task name nil").font(.custom(  Constants.TextConstants.baloo2Medium , size: 16))
+                        Text(task.name).font(.custom(  Constants.TextConstants.baloo2Medium , size: 16))
                             .lineLimit(1)
                             .truncationMode(.tail)
                         HStack {
-                            Text("\((task.duration ?? 1.0).toInt()) Minutes" ).font(.custom(Constants.TextConstants.baloo2Medium, size: 16))
+                            Text("\((task.duration)) Minutes" ).font(.custom(Constants.TextConstants.baloo2Medium, size: 16))
                                 .foregroundStyle(.gray)
                         }
                     }
@@ -278,11 +273,11 @@ struct HomeView: View {
                         .frame(width: 50, height: 50, alignment: .leading)
                         .padding(.horizontal, 8)
                         .overlay {
-                            Text(task.emoji ?? "🫥").font(.system(size: 26))
+                            Text(task.emoji).font(.system(size: 26))
                         }
                     VStack(alignment: .leading) {
-                        Text(task.name ?? "Task name is nil").font(.custom(Constants.TextConstants.baloo2Medium , size: 16))
-                        Text("\(task.duration ?? 1.0)").font(.custom(Constants.TextConstants.baloo2Medium, size: 16))
+                        Text(task.name ).font(.custom(Constants.TextConstants.baloo2Medium , size: 16))
+                        Text("\(task.duration)").font(.custom(Constants.TextConstants.baloo2Medium, size: 16))
                             .foregroundStyle(.gray)
                     }
                     Spacer()

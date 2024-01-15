@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct CustomButton: View {
-    var title: String
     var gradient: LinearGradient?
     var color: Color?
-    @State var viewModel: ProgressViewModel
     @State var buttonType: ButtonType
+    var onTap: (() -> Void)?
 
     enum ButtonType: String {
+        case start = "Start"
         case giveaBreak = "Give a Break"
+        case stop = "Stop"
         case giveUp = "Give Up"
         case returnToWork = "Return to Work"
     }
@@ -26,12 +27,7 @@ struct CustomButton: View {
             .overlay {
                 Text(buttonType.rawValue)
             }.onTapGesture {
-                viewModel.pauseOrResumeTimer()
-                if buttonType == .returnToWork {
-                    buttonType = .giveaBreak
-                } else {
-                    buttonType = .returnToWork
-                }
+                onTap?()
             }
             .frame(width: 300,height: 60)
             .font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
@@ -40,7 +36,6 @@ struct CustomButton: View {
 }
 
 #Preview {
-    let progressVM = ProgressViewModel(progress: ProgressModel(progress: 1, circleProgress: 1, totalTime: 1))
-    return CustomButton(title: "", viewModel: progressVM, buttonType: .returnToWork)
+    return CustomButton(buttonType: .returnToWork)
 }
 
