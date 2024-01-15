@@ -30,8 +30,16 @@ struct PomodoroView: View {
                 currentTaskView()
                 pomodoroClockView().padding(.vertical, 50)
                 stayFocusedView()
-                CustomButton(title: "Take a Break",color: Color.primaryColor, viewModel: progressViewModel, buttonType: .giveaBreak)
-                CustomButton(title: "Give Up",viewModel: progressViewModel, buttonType: .giveUp)
+                CustomButton(color: Color.primaryColor, timerState: $progressViewModel.timerState) {
+                    progressViewModel.togglePauseandResume()
+                }
+                CustomButton(timerState: $progressViewModel.timerState, title: "Give Up") {
+                    progressViewModel.resetTimer()
+                }
+         
+                
+                
+                
                 Spacer()
             }.padding(.vertical, 70)
         }.navigationBarBackButtonHidden(true)
@@ -95,7 +103,7 @@ struct PomodoroView: View {
                     .foregroundColor(Color.clockBgColor)
 
                 Circle()
-                    .trim(from: 0.0, to: CGFloat(progressViewModel.progress ?? 0))
+                    .trim(from: 0.0, to: progressViewModel.progressModel.progress)
                     .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
                     .fill(
                         LinearGradient(
@@ -107,7 +115,7 @@ struct PomodoroView: View {
                     .rotationEffect(Angle(degrees: -90))
 
                 VStack {
-                    Text("\(progressViewModel.remainingTime().minutes):\(String(progressViewModel.remainingTime().seconds))")
+                    Text(progressViewModel.remainingTimeValue)
                     .font(.custom(Constants.TextConstants.baloo2Bold, size: 52))
                     .foregroundColor(Color.clockTextColor)
                     .frame(height: 30)
@@ -124,16 +132,12 @@ struct PomodoroView: View {
                         Circle().frame(width: 15, height: 15, alignment: .center).foregroundStyle(Color.primaryColor)
                     })
                     .offset(
-                        x: 125 * cos(2 * .pi * Double(progressViewModel.progress ?? 0)),
-                        y: 125 * sin(2 * .pi * Double(progressViewModel.progress ?? 0))
+                        x: 125 * cos(2 * .pi * Double(progressViewModel.progressModel.progress)),
+                        y: 125 * sin(2 * .pi * Double(progressViewModel.progressModel.progress))
                     )
                     .rotationEffect(Angle(degrees: -90))
-
             }.frame(width: 250, height: 250)
                 .padding()
-                .onAppear() {
-                    progressViewModel.startTimer()
-                }
         }
     }
 

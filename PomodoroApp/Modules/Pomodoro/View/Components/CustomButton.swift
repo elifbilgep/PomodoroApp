@@ -8,39 +8,39 @@
 import SwiftUI
 
 struct CustomButton: View {
-    var title: String
     var gradient: LinearGradient?
     var color: Color?
-    @State var viewModel: ProgressViewModel
-    @State var buttonType: ButtonType
-
-    enum ButtonType: String {
-        case giveaBreak = "Give a Break"
-        case giveUp = "Give Up"
-        case returnToWork = "Return to Work"
-    }
+    @Binding var timerState: TimerState?
+    var title: String?
+    var onTap: (() -> Void)?
+    
 
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
             .foregroundStyle(color ?? .red.opacity(0.6))
             .overlay {
-                Text(buttonType.rawValue)
+                Text(title ?? buttonTitle())
             }.onTapGesture {
-                viewModel.pauseOrResumeTimer()
-                if buttonType == .returnToWork {
-                    buttonType = .giveaBreak
-                } else {
-                    buttonType = .returnToWork
-                }
+                onTap?()
             }
             .frame(width: 300,height: 60)
             .font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
             .foregroundStyle(.white)
     }
+    
+    func buttonTitle() -> String {
+        switch timerState {
+        case .notStarted:
+            return "Start to work"
+        case .focusing:
+           return "Pause"
+        case .pause:
+            return "Resume"
+        case .none:
+            return ""
+        }
+    }
+    
 }
 
-#Preview {
-    let progressVM = ProgressViewModel(progress: ProgressModel(progress: 1, circleProgress: 1, totalTime: 1))
-    return CustomButton(title: "", viewModel: progressVM, buttonType: .returnToWork)
-}
 

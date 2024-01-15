@@ -10,13 +10,22 @@ import Foundation
 extension String {
     func timeStringToSeconds() -> Int {
         let components = self.components(separatedBy: ":")
-
+        
         guard components.count >= 2,
               let minutes = Int(components[0]),
               let seconds = Int(components[1]) else {
             return 0 // Return 0 if the conversion fails
         }
-
+        
         return minutes * 60 + seconds
+    }
+    
+    func stringToTimeString() -> String {
+        let seconds = Int(self) ?? 0
+        
+        let minutes = seconds / 60
+        let remainingSeconds = seconds % 60
+        
+        return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
 }
