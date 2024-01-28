@@ -6,16 +6,17 @@
 //
 
 import Foundation
+import Observation
 
-
+@Observable
 class ProgressModel {
     var progress: CGFloat
-    var circleProgress: CGFloat
     var totalTime: CGFloat
+    var remainingTimeValue: String
 
-    init(progress: CGFloat, circleProgress: CGFloat, totalTime: CGFloat) {
+    init(progress: CGFloat, totalTime: CGFloat, remainingTimeValue: String) {
         self.progress = progress
-        self.circleProgress = circleProgress
         self.totalTime = totalTime
-    }
+        self.remainingTimeValue = remainingTimeValue
+    } 
 }

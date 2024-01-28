@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomButton: View {
     var gradient: LinearGradient?
     var color: Color?
-    @Binding var timerState: TimerState?
+    var timerState: TimerState?
     var title: String?
     var onTap: (() -> Void)?
     

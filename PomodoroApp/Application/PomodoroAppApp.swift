@@ -12,7 +12,6 @@ import SwiftData
 @main
 struct PomodoroAppApp: App {
     let container: ModelContainer
-    @AppStorage("currentTimeValue") var currentTimeValue: String = "0"
 
     var body: some Scene {
         WindowGroup {

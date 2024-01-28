@@ -10,14 +10,15 @@ import SwiftData
 
 @Model
 class TaskModel: Hashable {
-    var name: String?
-    var duration: CGFloat?
-    var emoji: String?
-    var date: String?
-    var isCompleted: Bool?
-    var session: Int?
-    var activeSession: Int?
-    var breakDuration: String?
+    var name: String
+    var duration: CGFloat
+    var emoji: String
+    var date: String
+    var isCompleted: Bool
+    var session: Int
+    var activeSession: Int
+    var breakDuration: String
+    var taskId: String
 
     init(name: String = "",
          duration: CGFloat = 1.0,
@@ -35,5 +36,6 @@ class TaskModel: Hashable {
         self.session = session
         self.activeSession = activeSession
         self.breakDuration = breakDuration
+        self.taskId = UUID().uuidString
     }
 }

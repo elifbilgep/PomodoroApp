@@ -14,6 +14,19 @@ struct Constants {
         static let baloo2SemiBold = "Baloo2-SemiBold"
         static let baloo2Bold = "Baloo2-Bold"
     }
+    
+    static let fakeTaskModel = TaskModel(
+        name: "Complete Assignment",
+        duration: 2.5,
+        emoji: "📚",
+        date: "01.2024",
+        isCompleted: false,
+        session: 2,
+        activeSession: 1,
+        breakDuration: "00:05"
+    )
+    
+    static let fakeProgressModel = ProgressModel(progress: 1.0, totalTime: 1.0, remainingTimeValue: "15:00")
 }
 
 
