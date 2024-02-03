@@ -19,6 +19,7 @@ struct CircleProgressView: View {
                 .stroke(lineWidth: 20.0)
                 .foregroundColor(Color.clockBgColor)
             
+            
             Circle()
                 .trim(from: 0.0, to: progressViewModel.progressModel.progress)
                 .stroke(style: StrokeStyle(lineWidth: 20.0, lineCap: .round, lineJoin: .round))
@@ -55,8 +56,22 @@ struct CircleProgressView: View {
                 .rotationEffect(Angle(degrees: -90))
         }.frame(width: 250, height: 250)
             .onAppear {
-                if let currentTimeValue {
-                    progressViewModel.changeTimerRemaining(with: currentTimeValue)
+                if currentaskId == task.taskId {
+                    switch progressViewModel.progressModel.timerState {
+                    case .focusing:
+                        if let currentTimeValue {
+                            progressViewModel.changeTimerRemaining(with: currentTimeValue)
+                        }
+                        progressViewModel.resumeTimer()
+                    case .pause:
+                        if let currentTimeValue {
+                            progressViewModel.changeTimerRemaining(with: currentTimeValue)
+                        } else {
+                            progressViewModel.resetTimer()
+                        }
+                    case .notStarted:
+                        progressViewModel.resetTimer()
+                    }
                 }
             }
     }
@@ -64,7 +79,7 @@ struct CircleProgressView: View {
 
 #Preview {
     @State var progress = Constants.fakeProgressModel
-    var progressViewModel = ProgressViewModel(progress: progress)
     let task = TaskModel()
+    var progressViewModel = ProgressViewModel(progress: progress, currentTask: task)
     return CircleProgressView(progressViewModel: progressViewModel, task: task)
 }

@@ -19,6 +19,7 @@ struct PomodoroView: View {
     init(progressViewModel: ProgressViewModel, taskModel: TaskModel) {
         self.progressViewModel = progressViewModel
         self.taskModel = taskModel
+        progressViewModel.fetchTimerState(currentState: currentTimerState)
     }
     
     //MARK: - Body
@@ -36,25 +37,19 @@ struct PomodoroView: View {
             }.padding(.vertical, 70)
         }.navigationBarBackButtonHidden(true)
             .ignoresSafeArea()
-            .onAppear {
-                progressViewModel.fetchTimerState(
-                    currentState: currentTimerState)
-            }
-        
     }
     
     //MARK: - App Bar
     @ViewBuilder
     private func appBarView() -> some View {
         PomodoroAppBarView(
-            progressModel: progressViewModel.progressModel,
-            taskModel: taskModel)
+            progressVM: progressViewModel, taskModel: taskModel)
     }
     
     //MARK: - Current Task View
     @ViewBuilder
     private func currentTaskView() -> some View {
-        CurrentTaskView(taskModel: taskModel)
+        CurrentTaskView(taskModel: taskModel, timerState: progressViewModel.progressModel.timerState)
     }
     
     //MARK: - Pomodoro Clock View
@@ -74,20 +69,13 @@ struct PomodoroView: View {
     // MARK: Buttons View
     @ViewBuilder
     private func buttonsView() -> some View {
-        CustomButton(
-            color: Color.primaryColor,
-            timerState: progressViewModel.timerState) {
-            progressViewModel.togglePauseandResume()
-        }
-        CustomButton(timerState: progressViewModel.timerState, title: "Give Up") {
-            progressViewModel.resetTimer()
-        }
+            PomodoroButtonsView(progressViewModel: progressViewModel)
     }
 }
 
 #Preview {
-    let progressModel = ProgressModel(progress: 0, totalTime: 900, remainingTimeValue: "14:50")
-    let progressVM = ProgressViewModel(progress: progressModel)
-    return  PomodoroView(progressViewModel: progressVM, taskModel: TaskModel(name: "Work hard",duration: 15.0))
+    return  PomodoroView(
+        progressViewModel: Constants.fakeProgressViewModel,
+        taskModel: Constants.fakeTaskModel)
 }
 

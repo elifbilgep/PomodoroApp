@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct Constants {
-
+    
     enum TextConstants {
         static let baloo2Regular = "Baloo2-Regular"
         static let baloo2Medium = "Baloo2-Medium"
@@ -26,7 +26,9 @@ struct Constants {
         breakDuration: "00:05"
     )
     
-    static let fakeProgressModel = ProgressModel(progress: 1.0, totalTime: 1.0, remainingTimeValue: "15:00")
+    static let fakeProgressModel = ProgressModel(progress: 1.0, totalTime: 100.0, remainingTimeValue: "15:00", timerState: .pause)
+    
+    static let fakeProgressViewModel = ProgressViewModel(progress: fakeProgressModel, currentTask: fakeTaskModel)
 }
 
 

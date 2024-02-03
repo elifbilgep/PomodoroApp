@@ -9,21 +9,23 @@ import SwiftUI
 
 struct PomodoroAppBarView: View {
     @Environment(\.presentationMode) var presentationMode
-    var progressModel: ProgressModel
+    var progressVM: ProgressViewModel
     var taskModel: TaskModel
-    
+
     var body: some View {
         HStack {
             Image(systemName: "chevron.backward").font(.system(size: 22))
                 .onTapGesture {
                     presentationMode.wrappedValue.dismiss()
                     UserDefaults.standard.set(
-                        progressModel.remainingTimeValue,
+                        progressVM.progressModel.remainingTimeValue,
                         forKey: "currentTimeValue")
                     UserDefaults.standard.set(
                         taskModel.taskId,
                         forKey: "currentTaskId")
-                    
+                    UserDefaults.standard.set(
+                        progressVM.progressModel.timerState.rawValue,
+                        forKey: "currentState")
                 }
             Spacer()
             Text("Pomodoro Timer").font(.custom(Constants.TextConstants.baloo2Regular, size: 22)).foregroundStyle(.black.opacity(0.6))
@@ -36,5 +38,6 @@ struct PomodoroAppBarView: View {
 #Preview {
     let fakeTaskModel = Constants.fakeTaskModel
     let fakeProgressModel = Constants.fakeProgressModel
-    return PomodoroAppBarView(progressModel: fakeProgressModel, taskModel: fakeTaskModel)
+    let progressVM = ProgressViewModel(progress: fakeProgressModel, currentTask: fakeTaskModel)
+    return PomodoroAppBarView(progressVM: progressVM, taskModel: fakeTaskModel)
 }

@@ -12,7 +12,8 @@ import MCEmojiPicker
 struct HomeView: View {
     //MARK: - Variables
     @State private var viewModel: HomeViewModel
-    @State private var isSheetOpen = false
+    @State private var isAddTaskSheetOpen = false
+    @State private var isAlreadyFocusing = false
     @State var textFieldText: String = ""
     @State var path = [TaskModel]()
     @State var time: CGFloat = 1.0
@@ -23,6 +24,8 @@ struct HomeView: View {
     @State private var selectedMinutes: Int = 15
     @State private var selectedBreakMin: Int = 10
     @AppStorage("currentTimeValue") var currentTimeValue: String?
+    @AppStorage("currentState") var currentTimerState: String?
+    @AppStorage("currentTaskId") var currentaskId: String?
     
     
     //MARK: - Init
@@ -53,10 +56,11 @@ struct HomeView: View {
                             progress: ProgressModel(
                                 progress: 0,
                                 totalTime: CGFloat(task.duration.timeStringToSeconds()),
-                                remainingTimeValue:  "15"
-                            )
-                        )
-                        , taskModel: task
+                                remainingTimeValue:  "",
+                                timerState: viewModel.convertToTimerState(timerString: currentTimerState ?? "notStarted")
+                            ),
+                            currentTask: task
+                        ),taskModel: task
                     )
                 }
         }
@@ -98,14 +102,14 @@ struct HomeView: View {
                         )
                     Spacer()
                     Button(action: {
-                        isSheetOpen.toggle()
+                        isAddTaskSheetOpen.toggle()
                     }, label: {
                         Text("+").font(.system(size: 24))
                             .foregroundStyle(Color.primaryColor)
                     })
                 }.padding(.horizontal, 20)
             }.frame(width: 350, height: 60)
-            .sheet(isPresented: $isSheetOpen, content: sheetView)
+            .sheet(isPresented: $isAddTaskSheetOpen, content: sheetView)
     }
     //MARK: - SheetView
     @ViewBuilder
@@ -136,7 +140,7 @@ struct HomeView: View {
                 Spacer()
                 HStack {
                     Text("\(selectedMinutes)")
-                    Stepper("", value: $selectedMinutes, in: 15...60, step: 15)
+                    Stepper("", value: $selectedMinutes, in: 0...60, step: 5)
                 }
             }
             HStack {
@@ -167,7 +171,7 @@ struct HomeView: View {
                 )
                 
                 viewModel.addTask(task: newTask)
-                isSheetOpen.toggle()
+                isAddTaskSheetOpen.toggle()
                 textFieldText = ""
             }, label: {
                 Text("Add Task").frame(width: 330,height: 30)
@@ -236,17 +240,44 @@ struct HomeView: View {
                         }
                     }
                     Spacer()
-                    NavigationLink(value: task){
+                    
+                    if (currentTimerState == "focusing" &&  currentaskId == task.taskId) || (currentTimerState == "pause" && currentaskId == task.taskId) || (currentTimerState == nil && currentaskId == nil) {
+                        NavigationLink(value: task){
+                            VStack {
+                                Circle().frame(
+                                    width: 35,
+                                    height: 35)
+                                .padding().foregroundStyle(
+                                    Color.greenTintColor)
+                                .overlay {
+                                    Image("startIcon")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 20, height: 20)
+                                }.frame(height: 20)
+                            }
+                        }
+                        
+                    } else {
+                        
                         VStack {
                             Circle().frame(
                                 width: 35,
                                 height: 35)
-                            .padding().foregroundStyle(Color.greenTintColor)
+                            .padding().foregroundStyle(
+                                Color.red.opacity(0.5))
                             .overlay {
-                                Image("startIcon")
+                                
+                                Image("noEnterIcon")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 20, height: 20)
                             }.frame(height: 20)
                         }
+                        
                     }
+                    
+                    
                 }.frame(width: 350, height: 40, alignment: .leading)
             }
         
