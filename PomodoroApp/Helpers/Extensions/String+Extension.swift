@@ -28,4 +28,17 @@ extension String {
         
         return String(format: "%02d:%02d", minutes, remainingSeconds)
     }
+    
+    func convertToTimerState() -> TimerState{
+        switch self {
+        case TimerState.focusing.rawValue:
+            return .focusing
+        case TimerState.pause.rawValue:
+            return .pause
+        case TimerState.notStarted.rawValue:
+            return .notStarted
+        default:
+            return .pause
+        }
+    }
 }

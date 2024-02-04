@@ -9,17 +9,15 @@ import SwiftUI
 
 struct PomodoroView: View {
     //MARK: - Variables
-    var progressViewModel: ProgressViewModel
-    @Bindable var taskModel: TaskModel
-    @AppStorage("currentTimeValue") var currentTimeValue: String?
-    @AppStorage("currentTaskId") var currentaskId: String?
-    @AppStorage("currentState") var currentTimerState: String?
+    let progressViewModel: ProgressViewModel
+    let taskModel: TaskModel
+    let userDefaultsManager = UserDefaultManager.shared
     
     //MARK: - Initalize
     init(progressViewModel: ProgressViewModel, taskModel: TaskModel) {
         self.progressViewModel = progressViewModel
         self.taskModel = taskModel
-        progressViewModel.fetchTimerState(currentState: currentTimerState)
+        progressViewModel.fetchTimerState(currentState: userDefaultsManager.get(for: .currentTimeValue))
     }
     
     //MARK: - Body

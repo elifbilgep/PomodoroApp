@@ -33,19 +33,6 @@ class HomeViewModel: ObservableObject {
         modelContext.insert(task)
         fetchData()
     }
-    
-    func convertToTimerState(timerString: String) -> TimerState{
-        switch timerString {
-        case TimerState.focusing.rawValue:
-            return .focusing
-        case TimerState.pause.rawValue:
-            return .pause
-        case TimerState.notStarted.rawValue:
-            return .notStarted
-        default:
-            return .pause
-        }
-    }
 
 }
 

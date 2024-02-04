@@ -23,9 +23,7 @@ struct HomeView: View {
     let sessions: [Int] = [1,2,3,4,5]
     @State private var selectedMinutes: Int = 15
     @State private var selectedBreakMin: Int = 10
-    @AppStorage("currentTimeValue") var currentTimeValue: String?
-    @AppStorage("currentState") var currentTimerState: String?
-    @AppStorage("currentTaskId") var currentaskId: String?
+    @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
     
     
     //MARK: - Init
@@ -57,10 +55,10 @@ struct HomeView: View {
                                 progress: 0,
                                 totalTime: CGFloat(task.duration.timeStringToSeconds()),
                                 remainingTimeValue:  "",
-                                timerState: viewModel.convertToTimerState(timerString: currentTimerState ?? "notStarted")
-                            ),
+                                timerState: currentTimerState?.convertToTimerState() ?? TimerState.notStarted),
                             currentTask: task
-                        ),taskModel: task
+                            ),
+                        taskModel: task
                     )
                 }
         }
@@ -218,68 +216,7 @@ struct HomeView: View {
     //MARK: - Task View
     @ViewBuilder
     private func taskView(task: TaskModel) -> some View {
-        RoundedRectangle(cornerRadius: 10)
-            .frame(width: 350, height: 80)
-            .foregroundStyle(.white)
-            .overlay {
-                HStack() {
-                    RoundedRectangle(cornerRadius: 8)
-                        .foregroundStyle(.gray.opacity(0.1))
-                        .frame(width: 50, height: 50, alignment: .leading)
-                        .padding(.horizontal, 8)
-                        .overlay {
-                            Text(task.emoji).font(.system(size: 26))
-                        }
-                    VStack(alignment: .leading) {
-                        Text(task.name).font(.custom(  Constants.TextConstants.baloo2Medium , size: 16))
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                        HStack {
-                            Text("\((task.duration).toInt()) Minutes" ).font(.custom(Constants.TextConstants.baloo2Medium, size: 16))
-                                .foregroundStyle(.gray)
-                        }
-                    }
-                    Spacer()
-                    
-                    if (currentTimerState == "focusing" &&  currentaskId == task.taskId) || (currentTimerState == "pause" && currentaskId == task.taskId) || (currentTimerState == nil && currentaskId == nil) {
-                        NavigationLink(value: task){
-                            VStack {
-                                Circle().frame(
-                                    width: 35,
-                                    height: 35)
-                                .padding().foregroundStyle(
-                                    Color.greenTintColor)
-                                .overlay {
-                                    Image("startIcon")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 20, height: 20)
-                                }.frame(height: 20)
-                            }
-                        }
-                        
-                    } else {
-                        
-                        VStack {
-                            Circle().frame(
-                                width: 35,
-                                height: 35)
-                            .padding().foregroundStyle(
-                                Color.red.opacity(0.5))
-                            .overlay {
-                                
-                                Image("noEnterIcon")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 20, height: 20)
-                            }.frame(height: 20)
-                        }
-                        
-                    }
-                    
-                    
-                }.frame(width: 350, height: 40, alignment: .leading)
-            }
+        HomeTaskView(task: task)
         
     }
     

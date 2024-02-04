@@ -10,8 +10,7 @@ import SwiftUI
 struct CircleProgressView: View {
     var progressViewModel: ProgressViewModel
     var task: TaskModel
-    @AppStorage("currentTimeValue") var currentTimeValue: String?
-    @AppStorage("currentTaskId") var currentaskId: String?
+    var userDefaults = UserDefaultManager.shared
     
     var body: some View {
         ZStack {
@@ -56,9 +55,12 @@ struct CircleProgressView: View {
                 .rotationEffect(Angle(degrees: -90))
         }.frame(width: 250, height: 250)
             .onAppear {
-                if currentaskId == task.taskId {
+                let currentTimeValue: String? = userDefaults.get(for: .currentTimeValue)
+                if userDefaults.get(for: .currentTaskId) == task.taskId {
+                    
                     switch progressViewModel.progressModel.timerState {
                     case .focusing:
+                        
                         if let currentTimeValue {
                             progressViewModel.changeTimerRemaining(with: currentTimeValue)
                         }

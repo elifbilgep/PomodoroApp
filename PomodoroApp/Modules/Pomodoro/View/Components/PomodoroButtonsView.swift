@@ -63,7 +63,7 @@ struct PomodoroButtonsView: View {
             nil,
             forKey: "currentTaskId")
         UserDefaults.standard.set(
-            "notStarted",
+            nil,
             forKey: "currentState")
     }
 }
