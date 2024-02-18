@@ -10,10 +10,10 @@ import SwiftData
 
 @Observable
 class HomeViewModel: ObservableObject {
-     var allTasks: [TaskModel] = []
-     var completedTasks: [TaskModel] = []
-
+    var allTasks: [TaskModel] = []
+    var completedTasks: [TaskModel] = []
     var modelContext: ModelContext
+    
 
     init(modelContext: ModelContext) {
         self.modelContext = modelContext

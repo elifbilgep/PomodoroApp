@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HomeTaskView: View {
     var task: TaskModel
-    var userDefaultsManager = UserDefaultManager.shared
+    @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
+    @AppStorage(UserDefaultsKey.currentTaskId.value) var currentTaskId: String?
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
@@ -34,19 +35,16 @@ struct HomeTaskView: View {
                         }
                     }
                     Spacer()
-                    if userDefaultsManager.get(for: .currentTaskId) != nil {
-                        if userDefaultsManager.get(for: .currentTaskId) == task.taskId {
-                            NavigationLink(value: task) {
-                                TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
-                            }
-                        } else {
-                            TaskStatusView(imageName: "noEnterIcon", color: Color.redTintColor)
-                        }
-                    } else {
-                        NavigationLink(value: task) {
-                            TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
-                        }
+//                    currentTimerState == "focusing" && currentTaskId == task.taskId ?
+                    NavigationLink(value: task) {
+                        TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
                     }
+//                    }.disabled(false)
+//                    :
+//                    NavigationLink(value: task) {
+//                        TaskStatusView(imageName: "startIcon", color: Color.redTintColor)
+//                    }.disabled(true)
+                    
                     
                 }.frame(width: 350, height: 40, alignment: .leading)
             }

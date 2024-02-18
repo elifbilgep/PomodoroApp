@@ -67,7 +67,7 @@ struct PomodoroView: View {
     // MARK: Buttons View
     @ViewBuilder
     private func buttonsView() -> some View {
-            PomodoroButtonsView(progressViewModel: progressViewModel)
+        PomodoroButtonsView(progressViewModel: progressViewModel)
     }
 }
 

@@ -17,11 +17,14 @@ struct PomodoroAppBarView: View {
         HStack {
             Image(systemName: "chevron.backward").font(.system(size: 22))
                 .onTapGesture {
-                    userDefaults.set(progressVM.progressModel.remainingTimeValue, for: .currentTimeValue)
-                    userDefaults.set(taskModel.taskId, for: .currentTaskId)
-                    userDefaults.set(progressVM.progressModel.timerState.rawValue, for: .currentTimerState)
-                    presentationMode.wrappedValue.dismiss()
-                   
+                    if progressVM.progressModel.timerState == .notStarted {
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        userDefaults.set(progressVM.progressModel.remainingTimeValue, for: .currentTimeValue)
+                        userDefaults.set(taskModel.taskId, for: .currentTaskId)
+                        userDefaults.set(progressVM.progressModel.timerState.rawValue, for: .currentTimerState)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }
             Spacer()
             Text("Pomodoro Timer").font(.custom(Constants.TextConstants.baloo2Regular, size: 22)).foregroundStyle(.black.opacity(0.6))

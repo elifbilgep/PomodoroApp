@@ -51,10 +51,12 @@ final class ProgressViewModel {
     }
     
     func resetTimer() {
-        stopTimer()
+        changeTimerState(with: .notStarted)
+        timer?.invalidate()
+        timer = nil
         progressModel.progress = 0
         progressModel.remainingTimeValue = String(Int(progressModel.totalTime)).stringToTimeString()
-        changeTimerState(with: .pause)
+        
     }
     
     func resumeTimer() {
@@ -85,6 +87,8 @@ final class ProgressViewModel {
             return changeTimerState(with: .focusing)
         case TimerState.pause.rawValue :
             return changeTimerState(with: .pause)
+        case TimerState.notStarted.rawValue:
+            return changeTimerState(with: .notStarted)
         default:
             return 
         }

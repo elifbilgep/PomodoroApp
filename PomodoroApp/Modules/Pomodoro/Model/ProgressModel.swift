@@ -15,7 +15,7 @@ class ProgressModel {
     var remainingTimeValue: String
     var timerState: TimerState
 
-    init(progress: CGFloat, totalTime: CGFloat, remainingTimeValue: String, timerState: TimerState) {
+    init(progress: CGFloat, totalTime: CGFloat, remainingTimeValue: String = "", timerState: TimerState) {
         self.progress = progress
         self.totalTime = totalTime
         self.remainingTimeValue = remainingTimeValue

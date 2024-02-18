@@ -38,7 +38,7 @@ extension String {
         case TimerState.notStarted.rawValue:
             return .notStarted
         default:
-            return .pause
+            return .notStarted
         }
     }
 }

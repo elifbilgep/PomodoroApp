@@ -11,6 +11,7 @@ struct PomodoroButtonsView: View {
     @State var showAnimation = false
     var progressViewModel: ProgressViewModel
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    let userDefaultsManager = UserDefaultManager.shared
     
     var body: some View {
         switch progressViewModel.progressModel.timerState {
@@ -56,15 +57,9 @@ struct PomodoroButtonsView: View {
     }
     
     func removeAppStorage() {
-        UserDefaults.standard.set(
-            nil,
-            forKey: "currentTimeValue")
-        UserDefaults.standard.set(
-            nil,
-            forKey: "currentTaskId")
-        UserDefaults.standard.set(
-            nil,
-            forKey: "currentState")
+        userDefaultsManager.set("", for: .currentTimeValue)
+        userDefaultsManager.set("", for: .currentTaskId)
+        userDefaultsManager.set("", for: .currentTimerState)
     }
 }
 
