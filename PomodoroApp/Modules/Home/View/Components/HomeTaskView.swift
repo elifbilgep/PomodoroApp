@@ -39,7 +39,7 @@ struct HomeTaskView: View {
                     NavigationLink(value: task) {
                         TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
                     }
-//                    }.disabled(false)
+//                    }.disabled(false-
 //                    :
 //                    NavigationLink(value: task) {
 //                        TaskStatusView(imageName: "startIcon", color: Color.redTintColor)
