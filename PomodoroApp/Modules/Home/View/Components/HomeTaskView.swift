@@ -11,6 +11,8 @@ struct HomeTaskView: View {
     var task: TaskModel
     @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
     @AppStorage(UserDefaultsKey.currentTaskId.value) var currentTaskId: String?
+    @State var isEnter: Bool = true
+   
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
@@ -26,7 +28,7 @@ struct HomeTaskView: View {
                             Text(task.emoji).font(.system(size: 26))
                         }
                     VStack(alignment: .leading) {
-                        Text(task.name).font(.custom(  Constants.TextConstants.baloo2Medium , size: 16))
+                        Text(task.name).font(.custom(Constants.TextConstants.baloo2Medium , size: 16))
                             .lineLimit(1)
                             .truncationMode(.tail)
                         HStack {
@@ -35,22 +37,22 @@ struct HomeTaskView: View {
                         }
                     }
                     Spacer()
-//                    currentTimerState == "focusing" && currentTaskId == task.taskId ?
+                    
                     NavigationLink(value: task) {
                         TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
-                    }
-//                    }.disabled(false-
-//                    :
-//                    NavigationLink(value: task) {
-//                        TaskStatusView(imageName: "startIcon", color: Color.redTintColor)
-//                    }.disabled(true)
-                    
+                    }.disabled(!isEnter)
                     
                 }.frame(width: 350, height: 40, alignment: .leading)
+            }.onAppear {
+                if currentTaskId != task.taskId {
+                    self.isEnter = false
+                    
+                } else {
+                    self.isEnter = true
+                }
+                
             }
     }
 }
 
-#Preview {
-    HomeTaskView(task: Constants.fakeTaskModel)
-}
+

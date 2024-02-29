@@ -7,33 +7,26 @@
 
 import Foundation
 import SwiftData
+import Observation
 
 @Observable
-class HomeViewModel: ObservableObject {
+class HomeViewModel {
     var allTasks: [TaskModel] = []
     var completedTasks: [TaskModel] = []
-    var modelContext: ModelContext
+    private let dataSource: TaskDataSource
     
-
-    init(modelContext: ModelContext) {
-        self.modelContext = modelContext
-        fetchData()
+    init() {
+        self.dataSource = TaskDataSource.shared
+        allTasks = dataSource.fetchItems()
     }
-
-    func fetchData() {
-        do {
-            let descriptor = FetchDescriptor<TaskModel>()
-            self.allTasks = try self.modelContext.fetch(descriptor)
-        } catch {
-            print("Fetching data failed")
-        }
+    
+    func appendTask(newTask: TaskModel) {
+        dataSource.appendTask(newTask: newTask)
+        allTasks = dataSource.fetchItems()
     }
-
-    func addTask(task: TaskModel) {
-        modelContext.insert(task)
-        fetchData()
+    
+    func removeItem(_ index: Int) {
+        dataSource.removeItem(allTasks[index])
     }
-
+    
 }
-
-

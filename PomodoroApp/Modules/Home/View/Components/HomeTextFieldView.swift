@@ -10,12 +10,11 @@ import SwiftUI
 struct HomeTextFieldView: View {
     @Binding var isAddTaskSheetOpen: Bool
     @Binding var textFieldText: String
-    @EnvironmentObject var homeViewModel: HomeViewModel
     @State var selectedEmoji: String = "😇"
     @State var isPresented: Bool
     @State private var selectedMinutes: Int = 15
     @State private var selectedBreakMin: Int = 10
-    
+    var homeViewModel: HomeViewModel
     @State var selectedSession: Int = 1
     let sessions: [Int] = [1,2,3,4,5]
     var body: some View {
@@ -100,8 +99,9 @@ struct HomeTextFieldView: View {
                             session: selectedSession,
                             breakDuration: String(selectedBreakMin)
                         )
-                        
-                        homeViewModel.addTask(task: newTask)
+                       
+                         homeViewModel.appendTask(newTask: newTask)
+                
                         isAddTaskSheetOpen.toggle()
                         textFieldText = ""
                     }, label: {
@@ -125,5 +125,5 @@ struct HomeTextFieldView: View {
     @State var textFieldText = ""
     return HomeTextFieldView(
         isAddTaskSheetOpen: $isAddTaskSheetOpen,
-        textFieldText: $textFieldText, isPresented: isPresented)
+        textFieldText: $textFieldText, isPresented: isPresented, homeViewModel: HomeViewModel())
 }

@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeAllTasksView: View {
-    @EnvironmentObject var homeViewModel: HomeViewModel
+    var homeViewModel: HomeViewModel
+    
     var body: some View {
         VStack {
             Text("All Tasks")
@@ -16,13 +18,15 @@ struct HomeAllTasksView: View {
                 .foregroundColor(.black.opacity(0.6))
                 .frame(width: 350, height: 20, alignment: .leading).padding()
             
+            
             ForEach(homeViewModel.allTasks) { task in
                 HomeTaskView(task: task)
             }
         }
+
     }
 }
 
 #Preview {
-    HomeAllTasksView()
+    HomeAllTasksView(homeViewModel: HomeViewModel())
 }

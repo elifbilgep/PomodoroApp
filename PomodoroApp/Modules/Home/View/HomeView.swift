@@ -11,15 +11,14 @@ import MCEmojiPicker
 
  struct HomeView: View {
     //MARK: - Variables
-    @EnvironmentObject private var viewModel: HomeViewModel
     @State private var isAddTaskSheetOpen = false
     @State private var isAlreadyFocusing = false
     @State private var path = [TaskModel]()
     @State private var isPresented: Bool = false
     @State private var textFieldText: String = ""
     let userDefaultsManager = UserDefaultManager.shared
-    @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
-    
+     @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
+     var homeViewModel = HomeViewModel()
     //MARK: - Body
     @ViewBuilder
     var body: some View {
@@ -31,7 +30,8 @@ import MCEmojiPicker
                         headlineView()
                         HomeTextFieldView(
                             isAddTaskSheetOpen: $isAddTaskSheetOpen,
-                            textFieldText: $textFieldText, isPresented: isPresented)
+                            textFieldText: $textFieldText, isPresented: isPresented,
+                            homeViewModel: homeViewModel)
                         tasksView()
                         Spacer()
                     }
@@ -77,7 +77,7 @@ import MCEmojiPicker
     @ViewBuilder
     private func tasksView() -> some View {
         VStack {
-            HomeAllTasksView()
+            HomeAllTasksView(homeViewModel: homeViewModel)
             //completedTaskView(fakeList: fakeList)
         }
     }
@@ -111,6 +111,7 @@ import MCEmojiPicker
             }
     }
 }
+
 //MARK: - Preview
 #Preview {
     HomeView()
