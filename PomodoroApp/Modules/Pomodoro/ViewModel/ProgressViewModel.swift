@@ -13,11 +13,24 @@ final class ProgressViewModel {
     var progressModel: ProgressModel
     private(set) var currentTask: TaskModel
     private(set) var timer: Timer?
+    private var userDefaults = UserDefaultManager.shared
+    var currentTimerState: TimerState
+    var homeViewModel = HomeViewModel()
     
     init(progress: ProgressModel, currentTask: TaskModel) {
         self.currentTask = currentTask
         self.progressModel = progress
+        self.currentTimerState = .notStarted
         self.progressModel.remainingTimeValue = "\(String(Int(progress.totalTime)).stringToTimeString())"
+        fetchCurrentTimerState()
+    }
+    
+    func fetchCurrentTimerState() {
+        if let currentStateString: String = userDefaults.get(for: .currentTimerState) {
+            if let currentState = TimerState(rawValue: currentStateString) {
+                self.currentTimerState = currentState
+            }
+        }
     }
     
     func startTimer() {
@@ -67,11 +80,22 @@ final class ProgressViewModel {
     func changeTimerState(with newState: TimerState) {
         switch newState {
         case .focusing:
-            progressModel.timerState = .focusing
+            currentTimerState = .focusing
+            userDefaults.set(TimerState.focusing.rawValue, for: .currentTimerState)
+            for task in homeViewModel.allTasks {
+                if task.taskId != currentTask.taskId {
+                    task.isEnter = false
+                }
+            }
         case .pause:
-            progressModel.timerState = .pause
+            currentTimerState = .pause
+            userDefaults.set(TimerState.pause.rawValue, for: .currentTimerState)
         case .notStarted:
-            progressModel.timerState = .notStarted
+            currentTimerState = .notStarted
+            userDefaults.set(TimerState.notStarted.rawValue, for: .currentTimerState)
+            for task in homeViewModel.allTasks {
+                task.isEnter = true
+            }
         }
     }
     
@@ -81,21 +105,11 @@ final class ProgressViewModel {
         progressModel.remainingTimeValue = "\(newRemainingSeconds / 60):\(newRemainingSeconds % 60)"
     }
     
-    func fetchTimerState(currentState: String?) {
-        switch currentState {
-        case TimerState.focusing.rawValue:
-            return changeTimerState(with: .focusing)
-        case TimerState.pause.rawValue :
-            return changeTimerState(with: .pause)
-        case TimerState.notStarted.rawValue:
-            return changeTimerState(with: .notStarted)
-        default:
-            return 
-        }
-    }
+   
+    
     
     func toggleButton() {
-        if progressModel.timerState == .focusing {
+        if currentTimerState == .focusing {
             stopTimer()
         } else {
             startTimer()

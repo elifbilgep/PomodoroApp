@@ -17,6 +17,8 @@ struct HomeTextFieldView: View {
     var homeViewModel: HomeViewModel
     @State var selectedSession: Int = 1
     let sessions: [Int] = [1,2,3,4,5]
+    var userDefaults = UserDefaultManager.shared
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
             .foregroundStyle(.white)
@@ -97,7 +99,8 @@ struct HomeTextFieldView: View {
                             date: Date.now.formatted(.dateTime),
                             isCompleted: false,
                             session: selectedSession,
-                            breakDuration: String(selectedBreakMin)
+                            breakDuration: String(selectedBreakMin),
+                            isEnter: userDefaults.get(for: .currentTimerState) == TimerState.focusing ? false : true
                         )
                        
                          homeViewModel.appendTask(newTask: newTask)
@@ -123,6 +126,7 @@ struct HomeTextFieldView: View {
     @State var isAddTaskSheetOpen = false
     @State var isPresented = false
     @State var textFieldText = ""
+    
     return HomeTextFieldView(
         isAddTaskSheetOpen: $isAddTaskSheetOpen,
         textFieldText: $textFieldText, isPresented: isPresented, homeViewModel: HomeViewModel())

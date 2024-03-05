@@ -14,10 +14,11 @@ struct PomodoroButtonsView: View {
     let userDefaultsManager = UserDefaultManager.shared
     
     var body: some View {
-        switch progressViewModel.progressModel.timerState {
+        switch progressViewModel.currentTimerState {
         case .notStarted:
             CustomButton(color: Color("primaryColor"), title: "Start") {
                 progressViewModel.startTimer()
+                
             }
         case .focusing:
             VStack {
@@ -59,7 +60,7 @@ struct PomodoroButtonsView: View {
     func removeAppStorage() {
         userDefaultsManager.set("", for: .currentTimeValue)
         userDefaultsManager.set("", for: .currentTaskId)
-        userDefaultsManager.set("", for: .currentTimerState)
+        userDefaultsManager.set(TimerState.notStarted.rawValue, for: .currentTimerState)
     }
 }
 

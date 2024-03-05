@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		6A332F5F2B27AA6B00C68FF6 /* PomodoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A332F5E2B27AA6B00C68FF6 /* PomodoroView.swift */; };
 		6A5851262B24A82700B717B7 /* PomodoroAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */; };
-		6A58512A2B24A82800B717B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A5851292B24A82800B717B7 /* Assets.xcassets */; };
-		6A58512D2B24A82800B717B7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A58512C2B24A82800B717B7 /* Preview Assets.xcassets */; };
 		6A58513D2B24A8F800B717B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58513C2B24A8F800B717B7 /* HomeView.swift */; };
 		6A58513F2B24ACB500B717B7 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58513E2B24ACB500B717B7 /* UIScreen+Extension.swift */; };
 		6A5851462B24B04A00B717B7 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A5851412B24B04A00B717B7 /* Baloo2-SemiBold.ttf */; };
@@ -23,6 +21,7 @@
 		6A5CA6742B4360D100ECAB05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5CA6732B4360D100ECAB05 /* String+Extension.swift */; };
 		6A6A4FA92B6EC24300ABB7D3 /* PomodoroButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6A4FA82B6EC24300ABB7D3 /* PomodoroButtonsView.swift */; };
 		6A88B6C92B3EDFCE00FE0504 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A88B6C82B3EDFCE00FE0504 /* CustomButton.swift */; };
+		6A8F0E3A2B911B7D007A94BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A8F0E392B911B7D007A94BB /* Assets.xcassets */; };
 		6AA6E6B92B2F9F720035CFC0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA6E6B82B2F9F720035CFC0 /* HomeViewModel.swift */; };
 		6AA6E6BC2B2FA5EF0035CFC0 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA6E6BB2B2FA5EF0035CFC0 /* TaskModel.swift */; };
 		6AB3046B2B6A768300008C73 /* TimerEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB3046A2B6A768300008C73 /* TimerEnum.swift */; };
@@ -46,8 +45,6 @@
 		6A332F5E2B27AA6B00C68FF6 /* PomodoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroView.swift; sourceTree = "<group>"; };
 		6A5851222B24A82700B717B7 /* PomodoroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroAppApp.swift; sourceTree = "<group>"; };
-		6A5851292B24A82800B717B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6A58512C2B24A82800B717B7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6A58513C2B24A8F800B717B7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		6A58513E2B24ACB500B717B7 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
 		6A5851412B24B04A00B717B7 /* Baloo2-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Baloo2-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -61,6 +58,7 @@
 		6A5CA6732B4360D100ECAB05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6A6A4FA82B6EC24300ABB7D3 /* PomodoroButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroButtonsView.swift; sourceTree = "<group>"; };
 		6A88B6C82B3EDFCE00FE0504 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		6A8F0E392B911B7D007A94BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AA6E6B82B2F9F720035CFC0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		6AA6E6BB2B2FA5EF0035CFC0 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		6AB3046A2B6A768300008C73 /* TimerEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEnum.swift; sourceTree = "<group>"; };
@@ -119,21 +117,13 @@
 		6A5851242B24A82700B717B7 /* PomodoroApp */ = {
 			isa = PBXGroup;
 			children = (
+				6A8F0E392B911B7D007A94BB /* Assets.xcassets */,
 				6A58514B2B24B08100B717B7 /* Info.plist */,
 				6A5851352B24A86A00B717B7 /* Application */,
 				6A5851342B24A84B00B717B7 /* Helpers */,
 				6A5851332B24A84500B717B7 /* Modules */,
-				6A58512B2B24A82800B717B7 /* Preview Content */,
 			);
 			path = PomodoroApp;
-			sourceTree = "<group>";
-		};
-		6A58512B2B24A82800B717B7 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				6A58512C2B24A82800B717B7 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		6A5851332B24A84500B717B7 /* Modules */ = {
@@ -159,7 +149,6 @@
 		6A5851352B24A86A00B717B7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				6A5851292B24A82800B717B7 /* Assets.xcassets */,
 				6A58514E2B24B35400B717B7 /* Fonts */,
 				6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */,
 			);
@@ -364,11 +353,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A5851492B24B04A00B717B7 /* Baloo2-Regular.ttf in Resources */,
-				6A58512D2B24A82800B717B7 /* Preview Assets.xcassets in Resources */,
 				6A58514A2B24B04A00B717B7 /* Baloo2-Medium.ttf in Resources */,
 				6A5851472B24B04A00B717B7 /* Baloo2-ExtraBold.ttf in Resources */,
 				6A5851462B24B04A00B717B7 /* Baloo2-SemiBold.ttf in Resources */,
-				6A58512A2B24A82800B717B7 /* Assets.xcassets in Resources */,
+				6A8F0E3A2B911B7D007A94BB /* Assets.xcassets in Resources */,
 				6A5851482B24B04A00B717B7 /* Baloo2-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,7 +525,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PomodoroApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"PomodoroApp/Assets.xcassets";
 				DEVELOPMENT_TEAM = Y5JW4F4D62;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -567,7 +555,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PomodoroApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"PomodoroApp/Assets.xcassets";
 				DEVELOPMENT_TEAM = Y5JW4F4D62;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

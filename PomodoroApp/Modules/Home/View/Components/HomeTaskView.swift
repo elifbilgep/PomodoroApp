@@ -10,9 +10,12 @@ import SwiftUI
 struct HomeTaskView: View {
     var task: TaskModel
     @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
-    @AppStorage(UserDefaultsKey.currentTaskId.value) var currentTaskId: String?
-    @State var isEnter: Bool = true
-   
+    var userDefaults = UserDefaultManager.shared
+    
+    init(task: TaskModel) {
+        self.task = task
+        
+    }
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
@@ -38,21 +41,22 @@ struct HomeTaskView: View {
                     }
                     Spacer()
                     
-                    NavigationLink(value: task) {
-                        TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
-                    }.disabled(!isEnter)
+                    if task.isEnter {
+                        NavigationLink(value: task) {
+                            TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
+                        }
+                        
+                    } else {
+                        TaskStatusView(imageName: "startIcon", color: Color.redTintColor)
+                    }
+                    
                     
                 }.frame(width: 350, height: 40, alignment: .leading)
-            }.onAppear {
-                if currentTaskId != task.taskId {
-                    self.isEnter = false
-                    
-                } else {
-                    self.isEnter = true
-                }
-                
             }
     }
 }
 
-
+#Preview {
+    let fakeTask = Constants.fakeTaskModel
+    return HomeTaskView(task: fakeTask)
+}

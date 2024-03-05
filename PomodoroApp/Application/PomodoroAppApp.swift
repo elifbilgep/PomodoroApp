@@ -14,8 +14,6 @@ struct PomodoroAppApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView()
-        }
+        }.modelContainer(TaskDataSource.shared.modelContainer)
     }
 }
-
-

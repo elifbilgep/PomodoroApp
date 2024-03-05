@@ -12,12 +12,13 @@ struct PomodoroView: View {
     let progressViewModel: ProgressViewModel
     let taskModel: TaskModel
     let userDefaultsManager = UserDefaultManager.shared
+    let homeViewModel: HomeViewModel
     
     //MARK: - Initalize
-    init(progressViewModel: ProgressViewModel, taskModel: TaskModel) {
+    init(progressViewModel: ProgressViewModel, taskModel: TaskModel, homeViewModel: HomeViewModel) {
         self.progressViewModel = progressViewModel
         self.taskModel = taskModel
-        progressViewModel.fetchTimerState(currentState: userDefaultsManager.get(for: .currentTimeValue))
+        self.homeViewModel = homeViewModel
     }
     
     //MARK: - Body
@@ -41,13 +42,13 @@ struct PomodoroView: View {
     @ViewBuilder
     private func appBarView() -> some View {
         PomodoroAppBarView(
-            progressVM: progressViewModel, taskModel: taskModel)
+            progressVM: progressViewModel, taskModel: taskModel, homeViewModel: homeViewModel)
     }
     
     //MARK: - Current Task View
     @ViewBuilder
     private func currentTaskView() -> some View {
-        CurrentTaskView(taskModel: taskModel, timerState: progressViewModel.progressModel.timerState)
+        CurrentTaskView(taskModel: taskModel, timerState: progressViewModel.currentTimerState)
     }
     
     //MARK: - Pomodoro Clock View
@@ -74,6 +75,7 @@ struct PomodoroView: View {
 #Preview {
     return  PomodoroView(
         progressViewModel: Constants.fakeProgressViewModel,
-        taskModel: Constants.fakeTaskModel)
+        taskModel: Constants.fakeTaskModel,
+    homeViewModel: HomeViewModel())
 }
 

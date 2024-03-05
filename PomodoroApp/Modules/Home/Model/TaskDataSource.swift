@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 
 final class TaskDataSource {
-    private let modelContainer: ModelContainer
-    private let modelContext: ModelContext
+    let modelContainer: ModelContainer
+    let modelContext: ModelContext
     
     @MainActor
     static let shared = TaskDataSource()
@@ -32,11 +32,8 @@ final class TaskDataSource {
     }
     
     func fetchItems() -> [TaskModel] {
-        var list: [TaskModel] = []
         do {
-            list = try modelContext.fetch(FetchDescriptor<TaskModel>())
-            print(list.last?.name)
-            return list
+            return  try modelContext.fetch(FetchDescriptor<TaskModel>())
         } catch {
             fatalError(error.localizedDescription)
         }
@@ -44,5 +41,14 @@ final class TaskDataSource {
     
     func removeItem(_ task: TaskModel) {
         modelContext.delete(task)
+    }
+    
+    
+    func removeAllTask() {
+      
+         modelContext.container.deleteAllData()
+ 
+      
+        
     }
 }

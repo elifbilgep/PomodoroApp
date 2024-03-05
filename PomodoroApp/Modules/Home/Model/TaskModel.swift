@@ -19,6 +19,7 @@ class TaskModel: Hashable {
     var activeSession: Int
     var breakDuration: String
     var taskId: String
+    var isEnter: Bool
 
     init(name: String = "",
          duration: CGFloat = 1.0,
@@ -27,7 +28,9 @@ class TaskModel: Hashable {
          isCompleted: Bool = false,
          session: Int = 1,
          activeSession: Int = 1,
-         breakDuration: String = "" ) {
+         breakDuration: String = "",
+         isEnter: Bool = true
+    ) {
         self.name = name
         self.duration = duration
         self.emoji = emoji
@@ -37,5 +40,8 @@ class TaskModel: Hashable {
         self.activeSession = activeSession
         self.breakDuration = breakDuration
         self.taskId = UUID().uuidString
+        self.isEnter = isEnter
     }
+    
+
 }

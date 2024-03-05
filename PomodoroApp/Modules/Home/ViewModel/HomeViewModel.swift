@@ -14,6 +14,12 @@ class HomeViewModel {
     var allTasks: [TaskModel] = []
     var completedTasks: [TaskModel] = []
     private let dataSource: TaskDataSource
+    var isAddTaskSheetOpen = false
+    var isAlreadyFocusing = false
+    var path = [TaskModel]()
+    var isPresented: Bool = false
+    var textFieldText: String = ""
+    
     
     init() {
         self.dataSource = TaskDataSource.shared
@@ -25,8 +31,12 @@ class HomeViewModel {
         allTasks = dataSource.fetchItems()
     }
     
-    func removeItem(_ index: Int) {
-        dataSource.removeItem(allTasks[index])
+    func removeItem(task: TaskModel) {
+        dataSource.removeItem(task)
+        allTasks = dataSource.fetchItems()
     }
     
+    func removeAllTask() {
+        dataSource.removeAllTask()
+    }
 }

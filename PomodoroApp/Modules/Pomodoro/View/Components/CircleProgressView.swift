@@ -58,7 +58,7 @@ struct CircleProgressView: View {
                 let currentTimeValue: String? = userDefaults.get(for: .currentTimeValue)
                 if userDefaults.get(for: .currentTaskId) == task.taskId {
                     
-                    switch progressViewModel.progressModel.timerState {
+                    switch progressViewModel.currentTimerState {
                     case .focusing:
                         
                         if let currentTimeValue {

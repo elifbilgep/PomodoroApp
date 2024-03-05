@@ -13,11 +13,14 @@ struct HomeAllTasksView: View {
     
     var body: some View {
         VStack {
-            Text("All Tasks")
-                .font(.custom(Constants.TextConstants.baloo2SemiBold, size: 20))
-                .foregroundColor(.black.opacity(0.6))
-                .frame(width: 350, height: 20, alignment: .leading).padding()
-            
+            HStack {
+                Text("All Tasks")
+                    .font(.custom(Constants.TextConstants.baloo2SemiBold, size: 20))
+                    .foregroundColor(.black.opacity(0.6))
+                    .frame(width: 300, height: 20, alignment: .leading).padding()
+                Spacer()
+               
+            }
             
             ForEach(homeViewModel.allTasks) { task in
                 HomeTaskView(task: task)
@@ -28,5 +31,6 @@ struct HomeAllTasksView: View {
 }
 
 #Preview {
-    HomeAllTasksView(homeViewModel: HomeViewModel())
+    let fakePVM = Constants.fakeProgressViewModel
+  return  HomeAllTasksView(homeViewModel: HomeViewModel())
 }

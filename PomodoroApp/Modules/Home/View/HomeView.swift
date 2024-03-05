@@ -9,35 +9,34 @@ import SwiftUI
 import SwiftData
 import MCEmojiPicker
 
- struct HomeView: View {
+struct HomeView: View {
     //MARK: - Variables
-    @State private var isAddTaskSheetOpen = false
-    @State private var isAlreadyFocusing = false
-    @State private var path = [TaskModel]()
-    @State private var isPresented: Bool = false
-    @State private var textFieldText: String = ""
-    let userDefaultsManager = UserDefaultManager.shared
-     @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
-     var homeViewModel = HomeViewModel()
+    @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
+    @State var homeViewModel = HomeViewModel()
+    
     //MARK: - Body
     @ViewBuilder
     var body: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: $homeViewModel.path) {
             ZStack() {
                 Color.bgColor
                 ScrollView {
                     VStack {
                         headlineView()
                         HomeTextFieldView(
-                            isAddTaskSheetOpen: $isAddTaskSheetOpen,
-                            textFieldText: $textFieldText, isPresented: isPresented,
+                            isAddTaskSheetOpen: $homeViewModel.isAddTaskSheetOpen,
+                            textFieldText: $homeViewModel.textFieldText,
+                            isPresented: homeViewModel.isPresented,
                             homeViewModel: homeViewModel)
+                        musicView()
                         tasksView()
                         Spacer()
                     }
-                }.padding(.vertical, 50)
-            }.edgesIgnoringSafeArea(.all)
+                }
+                .padding(.vertical, 50)
+            }.ignoresSafeArea()
                 .navigationDestination(for: TaskModel.self) { task in
+                    
                     PomodoroView(
                         progressViewModel: ProgressViewModel(
                             progress: ProgressModel(
@@ -45,19 +44,24 @@ import MCEmojiPicker
                                 totalTime: CGFloat(task.duration.timeStringToSeconds()),
                                 timerState: currentTimerState?.convertToTimerState() ?? TimerState.notStarted),
                             currentTask: task
-                            ),
-                        taskModel: task
+                        ),
+                        taskModel: task,
+                        homeViewModel: homeViewModel
                     )
                 }
         }
+    }
+    
+    func setProgressVM() {
+        
     }
     
     @ViewBuilder
     private func headlineView() -> some View {
         HStack {
             VStack (alignment: .leading, spacing: -10) {
-                Text("Hello Glen,").font(.custom(Constants.TextConstants.baloo2SemiBold, size: 28))
-                Text("Be productive today!").font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
+                Text("Welcome").font(.custom(Constants.TextConstants.baloo2SemiBold, size: 28))
+                Text("Be productive today!").font(.custom(Constants.TextConstants.baloo2Medium, size: 20))
                     .font(.system(size: 20))
                     .foregroundColor(.black.opacity(0.6))
                 
@@ -65,7 +69,7 @@ import MCEmojiPicker
             Image(systemName: "text.alignright")
         }.padding()
     }
-
+    
     
     private func formatHourAndMinute(date: Date) -> String {
         let formatter = DateFormatter()
@@ -80,6 +84,36 @@ import MCEmojiPicker
             HomeAllTasksView(homeViewModel: homeViewModel)
             //completedTaskView(fakeList: fakeList)
         }
+    }
+    
+     // MARK: Music View
+    @ViewBuilder
+    private func musicView() -> some View {
+        let musicList = ["ocean", "forest", "night", "rain", "thunderstorm"]
+        VStack(alignment: .leading) {
+            Text("Calm Sounds").font(.custom(Constants.TextConstants.baloo2Medium, size: 20))
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(musicList, id: \.self ) { music in
+                        Image(music)
+                            .resizable()
+                            .scaledToFit()
+                            .cornerRadius(10)
+                            .frame(width: 150, height: 200)
+                            .overlay {
+                                VStack(alignment: .leading){
+                                    Spacer()
+                                    Text(music).foregroundStyle(.white).padding()
+                                        .font(.custom(Constants.TextConstants  .baloo2Bold, size: 18))
+                                        .shadow(color: .black, radius: 20)
+                                }.frame(width: 150, alignment: .leading)
+                            }
+                    }
+                }
+            }
+           
+        }.padding(.horizontal)
+        
     }
     
     //MARK: - Old Tasks View
