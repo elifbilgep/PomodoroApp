@@ -116,7 +116,8 @@
 				6A29ED862B97AF93005F5C66 /* ocean_sound.mp3 */,
 				6A29ED872B97AF93005F5C66 /* thunderstorm_sound.mp3 */,
 			);
-			path = Sounds;
+			name = Sounds;
+			path = ../Sounds;
 			sourceTree = "<group>";
 		};
 		6A332F5D2B27AA5E00C68FF6 /* View */ = {
@@ -147,7 +148,6 @@
 		6A5851242B24A82700B717B7 /* PomodoroApp */ = {
 			isa = PBXGroup;
 			children = (
-				6A29ED8E2B97B157005F5C66 /* Sounds */,
 				6A8F0E392B911B7D007A94BB /* Assets.xcassets */,
 				6A58514B2B24B08100B717B7 /* Info.plist */,
 				6A5851352B24A86A00B717B7 /* Application */,
@@ -181,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				6A29ED852B97AF73005F5C66 /* Sounds */,
+				6A29ED8E2B97B157005F5C66 /* Sounds */,
 				6A58514E2B24B35400B717B7 /* Fonts */,
 				6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */,
 			);
