@@ -29,7 +29,7 @@ class TaskModel: Hashable {
          session: Int = 1,
          activeSession: Int = 1,
          breakDuration: String = "",
-         isEnter: Bool = true
+         isEnter: Bool = false
     ) {
         self.name = name
         self.duration = duration

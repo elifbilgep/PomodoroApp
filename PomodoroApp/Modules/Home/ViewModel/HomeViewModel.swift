@@ -35,8 +35,4 @@ class HomeViewModel {
         dataSource.removeItem(task)
         allTasks = dataSource.fetchItems()
     }
-    
-    func removeAllTask() {
-        dataSource.removeAllTask()
-    }
 }

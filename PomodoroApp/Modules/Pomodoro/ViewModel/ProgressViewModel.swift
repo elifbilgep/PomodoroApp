@@ -105,9 +105,6 @@ final class ProgressViewModel {
         progressModel.remainingTimeValue = "\(newRemainingSeconds / 60):\(newRemainingSeconds % 60)"
     }
     
-   
-    
-    
     func toggleButton() {
         if currentTimerState == .focusing {
             stopTimer()
@@ -115,6 +112,4 @@ final class ProgressViewModel {
             startTimer()
         }
     }
-    
-    
 }

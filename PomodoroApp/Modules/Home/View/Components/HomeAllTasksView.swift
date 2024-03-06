@@ -19,18 +19,17 @@ struct HomeAllTasksView: View {
                     .foregroundColor(.black.opacity(0.6))
                     .frame(width: 300, height: 20, alignment: .leading).padding()
                 Spacer()
-               
+                
             }
-            
             ForEach(homeViewModel.allTasks) { task in
                 HomeTaskView(task: task)
             }
         }
-
+        
     }
 }
 
 #Preview {
     let fakePVM = Constants.fakeProgressViewModel
-  return  HomeAllTasksView(homeViewModel: HomeViewModel())
+    return  HomeAllTasksView(homeViewModel: HomeViewModel())
 }

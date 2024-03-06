@@ -42,13 +42,4 @@ final class TaskDataSource {
     func removeItem(_ task: TaskModel) {
         modelContext.delete(task)
     }
-    
-    
-    func removeAllTask() {
-      
-         modelContext.container.deleteAllData()
- 
-      
-        
-    }
 }

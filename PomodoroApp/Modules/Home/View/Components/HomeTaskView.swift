@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct HomeTaskView: View {
-    var task: TaskModel
-    @AppStorage(UserDefaultsKey.currentTimerState.value) var currentTimerState: String?
-    var userDefaults = UserDefaultManager.shared
+    let task: TaskModel
+    let userDefaults = UserDefaultManager.shared
     
     init(task: TaskModel) {
         self.task = task
-        
     }
     
     var body: some View {
@@ -22,7 +20,7 @@ struct HomeTaskView: View {
             .frame(width: 350, height: 80)
             .foregroundStyle(.white)
             .overlay {
-                HStack() {
+                HStack {
                     RoundedRectangle(cornerRadius: 8)
                         .foregroundStyle(.gray.opacity(0.1))
                         .frame(width: 50, height: 50, alignment: .leading)
@@ -45,12 +43,9 @@ struct HomeTaskView: View {
                         NavigationLink(value: task) {
                             TaskStatusView(imageName: "startIcon", color: Color.greenTintColor)
                         }
-                        
                     } else {
                         TaskStatusView(imageName: "startIcon", color: Color.redTintColor)
                     }
-                    
-                    
                 }.frame(width: 350, height: 40, alignment: .leading)
             }
     }

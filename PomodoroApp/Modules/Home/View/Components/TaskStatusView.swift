@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TaskStatusView: View {
-    var imageName: String
-    var color: Color
+    let imageName: String
+    let color: Color
     
     var body: some View {
         VStack {

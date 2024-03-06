@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A29ED842B97A8E0005F5C66 /* MusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A29ED832B97A8E0005F5C66 /* MusicView.swift */; };
+		6A29ED8A2B97AF94005F5C66 /* ocean_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A29ED862B97AF93005F5C66 /* ocean_sound.mp3 */; };
+		6A29ED8B2B97AF94005F5C66 /* thunderstorm_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A29ED872B97AF93005F5C66 /* thunderstorm_sound.mp3 */; };
+		6A29ED8C2B97AF94005F5C66 /* night_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A29ED882B97AF94005F5C66 /* night_sound.mp3 */; };
+		6A29ED8D2B97AF94005F5C66 /* forest_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A29ED892B97AF94005F5C66 /* forest_sound.mp3 */; };
+		6A29ED902B97C178005F5C66 /* MusicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A29ED8F2B97C178005F5C66 /* MusicViewModel.swift */; };
 		6A332F5F2B27AA6B00C68FF6 /* PomodoroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A332F5E2B27AA6B00C68FF6 /* PomodoroView.swift */; };
 		6A5851262B24A82700B717B7 /* PomodoroAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */; };
 		6A58513D2B24A8F800B717B7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A58513C2B24A8F800B717B7 /* HomeView.swift */; };
@@ -42,6 +48,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A29ED832B97A8E0005F5C66 /* MusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicView.swift; sourceTree = "<group>"; };
+		6A29ED862B97AF93005F5C66 /* ocean_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ocean_sound.mp3; sourceTree = "<group>"; };
+		6A29ED872B97AF93005F5C66 /* thunderstorm_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thunderstorm_sound.mp3; sourceTree = "<group>"; };
+		6A29ED882B97AF94005F5C66 /* night_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = night_sound.mp3; sourceTree = "<group>"; };
+		6A29ED892B97AF94005F5C66 /* forest_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = forest_sound.mp3; sourceTree = "<group>"; };
+		6A29ED8F2B97C178005F5C66 /* MusicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewModel.swift; sourceTree = "<group>"; };
 		6A332F5E2B27AA6B00C68FF6 /* PomodoroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroView.swift; sourceTree = "<group>"; };
 		6A5851222B24A82700B717B7 /* PomodoroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroAppApp.swift; sourceTree = "<group>"; };
@@ -89,6 +101,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6A29ED852B97AF73005F5C66 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		6A29ED8E2B97B157005F5C66 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				6A29ED892B97AF94005F5C66 /* forest_sound.mp3 */,
+				6A29ED882B97AF94005F5C66 /* night_sound.mp3 */,
+				6A29ED862B97AF93005F5C66 /* ocean_sound.mp3 */,
+				6A29ED872B97AF93005F5C66 /* thunderstorm_sound.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		6A332F5D2B27AA5E00C68FF6 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +147,7 @@
 		6A5851242B24A82700B717B7 /* PomodoroApp */ = {
 			isa = PBXGroup;
 			children = (
+				6A29ED8E2B97B157005F5C66 /* Sounds */,
 				6A8F0E392B911B7D007A94BB /* Assets.xcassets */,
 				6A58514B2B24B08100B717B7 /* Info.plist */,
 				6A5851352B24A86A00B717B7 /* Application */,
@@ -149,6 +180,7 @@
 		6A5851352B24A86A00B717B7 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				6A29ED852B97AF73005F5C66 /* Sounds */,
 				6A58514E2B24B35400B717B7 /* Fonts */,
 				6A5851252B24A82700B717B7 /* PomodoroAppApp.swift */,
 			);
@@ -231,6 +263,7 @@
 				6ACECA822B6F8E7B00F86B61 /* TaskStatusView.swift */,
 				6ACECA872B6FC3EF00F86B61 /* HomeTextFieldView.swift */,
 				6ACECA8B2B6FDABE00F86B61 /* HomeAllTasksView.swift */,
+				6A29ED832B97A8E0005F5C66 /* MusicView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -251,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				6AA6E6B82B2F9F720035CFC0 /* HomeViewModel.swift */,
+				6A29ED8F2B97C178005F5C66 /* MusicViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -355,8 +389,12 @@
 				6A5851492B24B04A00B717B7 /* Baloo2-Regular.ttf in Resources */,
 				6A58514A2B24B04A00B717B7 /* Baloo2-Medium.ttf in Resources */,
 				6A5851472B24B04A00B717B7 /* Baloo2-ExtraBold.ttf in Resources */,
+				6A29ED8B2B97AF94005F5C66 /* thunderstorm_sound.mp3 in Resources */,
 				6A5851462B24B04A00B717B7 /* Baloo2-SemiBold.ttf in Resources */,
+				6A29ED8D2B97AF94005F5C66 /* forest_sound.mp3 in Resources */,
+				6A29ED8A2B97AF94005F5C66 /* ocean_sound.mp3 in Resources */,
 				6A8F0E3A2B911B7D007A94BB /* Assets.xcassets in Resources */,
+				6A29ED8C2B97AF94005F5C66 /* night_sound.mp3 in Resources */,
 				6A5851482B24B04A00B717B7 /* Baloo2-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +409,7 @@
 				6A332F5F2B27AA6B00C68FF6 /* PomodoroView.swift in Sources */,
 				6AC1BA6D2B66EFA6009056D0 /* CurrentTaskView.swift in Sources */,
 				6AD0A17B2B3A464800D8B7ED /* ProgressModel.swift in Sources */,
+				6A29ED902B97C178005F5C66 /* MusicViewModel.swift in Sources */,
 				6A6A4FA92B6EC24300ABB7D3 /* PomodoroButtonsView.swift in Sources */,
 				6AC1BA6B2B66E614009056D0 /* CircleProgressView.swift in Sources */,
 				6AA6E6B92B2F9F720035CFC0 /* HomeViewModel.swift in Sources */,
@@ -390,6 +429,7 @@
 				6A5CA6722B43534600ECAB05 /* UserDefaults+Extension.swift in Sources */,
 				6AA6E6BC2B2FA5EF0035CFC0 /* TaskModel.swift in Sources */,
 				6AE70D962B372BCE00995F25 /* CGFloat+Extension.swift in Sources */,
+				6A29ED842B97A8E0005F5C66 /* MusicView.swift in Sources */,
 				6AB3046B2B6A768300008C73 /* TimerEnum.swift in Sources */,
 				6AFC80AF2B332802006F6E7C /* Color+Extenison.swift in Sources */,
 				6ACECA832B6F8E7B00F86B61 /* TaskStatusView.swift in Sources */,

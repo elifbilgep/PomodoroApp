@@ -13,7 +13,7 @@ import SwiftData
 struct PomodoroAppApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            HomeView().preferredColorScheme(ColorScheme.light)
         }.modelContainer(TaskDataSource.shared.modelContainer)
     }
 }

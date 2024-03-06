@@ -75,7 +75,7 @@ struct CircleProgressView: View {
                         progressViewModel.resetTimer()
                     }
                 }
-            }
+            }.padding(.vertical, 50)
     }
 }
 
