@@ -25,11 +25,7 @@ struct HomeView: View {
                     VStack {
                         headlineView()
                         musicPlayerView()
-                        HomeTextFieldView(
-                            isAddTaskSheetOpen: $homeViewModel.isAddTaskSheetOpen,
-                            textFieldText: $homeViewModel.textFieldText,
-                            isPresented: $homeViewModel.isPresented,
-                            homeViewModel: homeViewModel)
+                        HomeTextFieldView(homeViewModel: homeViewModel)
                         MusicView(musicViewModel: musicViewModel)
                         HomeAllTasksView(homeViewModel: homeViewModel)
                         Spacer()

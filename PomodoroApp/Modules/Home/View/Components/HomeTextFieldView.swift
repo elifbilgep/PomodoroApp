@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct HomeTextFieldView: View {
-    @Binding var isAddTaskSheetOpen: Bool
-    @Binding var textFieldText: String
-    @Binding var isPresented: Bool
     @State private var selectedEmoji: String = "😇"
     @State private var selectedMinutes: Int = 15
     @State private var selectedBreakMin: Int = 10
     @State private var selectedSession: Int = 1
     private let sessions: [Int] = [1,2,3,4,5]
-    var homeViewModel: HomeViewModel
+    @State var homeViewModel: HomeViewModel
     let userDefaults = UserDefaultManager.shared
     
     var body: some View {
@@ -24,7 +21,7 @@ struct HomeTextFieldView: View {
             .foregroundStyle(.white)
             .overlay {
                 HStack() {
-                    Text(textFieldText == "" ? "New task here..." : textFieldText)
+                    Text(homeViewModel.textFieldText == "" ? "New task here..." : homeViewModel.textFieldText)
                         .font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
                         .overlay(
                             LinearGradient(
@@ -35,33 +32,33 @@ struct HomeTextFieldView: View {
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )
-                            .mask(Text((textFieldText == "" ? "New task here..." : textFieldText)).font(.custom(Constants.TextConstants.baloo2Medium, size: 18)))
+                            .mask(Text((homeViewModel.textFieldText == "" ? "New task here..." : homeViewModel.textFieldText)).font(.custom(Constants.TextConstants.baloo2Medium, size: 18)))
                         )
                     Spacer()
                     Button(action: {
-                        isAddTaskSheetOpen.toggle()
+                        homeViewModel.isAddTaskSheetOpen.toggle()
                     }, label: {
                         Text("+").font(.system(size: 24))
                             .foregroundStyle(Color.primaryColor)
                     })
                 }.padding(.horizontal, 20)
             }.frame(width: 350, height: 60)
-            .sheet(isPresented: $isAddTaskSheetOpen) {
+            .sheet(isPresented: $homeViewModel.isAddTaskSheetOpen) {
                 VStack(alignment: .leading, spacing: 20) {
                     Spacer()
                     Text("Add New Task")
                         .font(.custom(Constants.TextConstants.baloo2Medium, size: 24))
                     HStack {
                         Button(selectedEmoji) {
-                            isPresented.toggle()
+                            homeViewModel.isPresented.toggle()
                         }.emojiPicker(
-                            isPresented: $isPresented,
+                            isPresented: $homeViewModel.isPresented,
                             selectedEmoji: $selectedEmoji
                         ).frame(width: 50, height: 50)
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
                         
-                        TextField("New Task Name", text: $textFieldText)
+                        TextField("New Task Name", text: $homeViewModel.textFieldText)
                             .font(.custom(Constants.TextConstants.baloo2Medium, size: 18))
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
@@ -94,7 +91,7 @@ struct HomeTextFieldView: View {
                     }
                     Button(action: {
                         let newTask = TaskModel(
-                            name: textFieldText,
+                            name: homeViewModel.textFieldText,
                             duration: CGFloat(selectedMinutes),
                             emoji: selectedEmoji,
                             date: Date.now.formatted(.dateTime),
@@ -104,8 +101,8 @@ struct HomeTextFieldView: View {
                             isEnter: userDefaults.get(for: .currentTimerState) == TimerState.focusing.rawValue ? false : true
                         )
                         homeViewModel.appendTask(newTask: newTask)
-                        isAddTaskSheetOpen.toggle()
-                        textFieldText = ""
+                        homeViewModel.isAddTaskSheetOpen.toggle()
+                        homeViewModel.textFieldText = ""
                     }, label: {
                         Text("Add Task").frame(width: 330,height: 30)
                     })
@@ -123,11 +120,5 @@ struct HomeTextFieldView: View {
 
 
 #Preview {
-    @State var isAddTaskSheetOpen = false
-    @State var isPresented = false
-    @State var textFieldText = ""
-    
-    return HomeTextFieldView(
-        isAddTaskSheetOpen: $isAddTaskSheetOpen,
-        textFieldText: $textFieldText, isPresented: $isPresented, homeViewModel: HomeViewModel())
+    return HomeTextFieldView(homeViewModel: HomeViewModel())
 }

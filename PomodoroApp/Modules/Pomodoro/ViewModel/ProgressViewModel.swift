@@ -29,6 +29,8 @@ final class ProgressViewModel {
         if let currentStateString: String = userDefaults.get(for: .currentTimerState) {
             if let currentState = TimerState(rawValue: currentStateString) {
                 self.currentTimerState = currentState
+            } else {
+                print("Error: cant fetch state ")
             }
         }
     }
@@ -106,10 +108,6 @@ final class ProgressViewModel {
     }
     
     func toggleButton() {
-        if currentTimerState == .focusing {
-            stopTimer()
-        } else {
-            startTimer()
-        }
+        currentTimerState == .focusing ? stopTimer() : startTimer()
     }
 }
