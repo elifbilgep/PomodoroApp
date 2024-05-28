@@ -20,7 +20,6 @@ class HomeViewModel {
     var isPresented: Bool = false
     var textFieldText: String = ""
     
-    
     init() {
         self.dataSource = TaskDataSource.shared
         allTasks = dataSource.fetchItems()
